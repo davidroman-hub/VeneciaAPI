@@ -7,6 +7,8 @@ require('dotenv').config();
 
 const app = express();
 
+
+
 // conect mongo DB
 
 mongoose.connect(process.env.DATABASE, {
@@ -17,6 +19,13 @@ mongoose.connect(process.env.DATABASE, {
 })
 .then(() => console.log('Base de datos DB conectada'))
 .catch( err => console.log('Conexion con Mongo fallo', err))
+
+
+// import Routes
+const authRoutes = require('./routes/auth') 
+
+
+
 
 // App middlewares
 
@@ -29,7 +38,7 @@ if((process.env.NODE_ENV = 'development')){
 
 
 // middlewares
-
+app.use('/api', authRoutes);
 
 // run server
 const port = process.env.PORT || 8000;
