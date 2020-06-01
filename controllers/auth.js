@@ -30,7 +30,38 @@ exports.signup = (req,res) => {
         res.json({
             messages:"Registro completado! Por favor inicia Sesion "
         })
-    })
+    });
     
+};
 
+
+exports.signin = ( req,res) => {
+    const {email, password} = req.body;
+
+    // check if exist the email
+    User.findOne({ email }).exec(( err, user ) => {
+        if (err || !user){
+            return res.status(400).json({
+                error: "El usuario con ese E-mail no existe"
+            })
+        }
+        // authenticate 
+        if(!user.authenticate(password)){
+            return res.status(400).json({
+                error:"El email y la contraseña no coinciden"
+            })
+        }
+            // generate the token
+         //   console.log('inicio de sesion valido', res);
+            const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, { expiresIn: '7d' });
+            const { _id, name, email, role } = user;
+
+            //Return token of AUTH
+
+            return res.json({
+               // console.log('Inicio de Sesion valido', res),
+                token,
+                user:{ _id, name, email, role}
+            })
+        })
 }
