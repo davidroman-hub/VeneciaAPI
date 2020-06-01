@@ -6,6 +6,9 @@ const fetch = require('node-fetch');
 // const sgMail = require('@sendgrid/mail');
 // sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
+
+/// REGISTRO    
+
 exports.signup = (req,res) => {
     console.log('req body on signup', req.body);
     const {name, email, password} = req.body;
@@ -34,6 +37,8 @@ exports.signup = (req,res) => {
     
 };
 
+
+/// INICIO DE SESION
 
 exports.signin = ( req,res) => {
     const {email, password} = req.body;
@@ -65,3 +70,39 @@ exports.signin = ( req,res) => {
             })
         })
 }
+
+//////////////////////
+//HELPERS  pick the token
+
+exports.requireSignin = expressJwt({
+    secret: process.env.JWT_SECRET
+})
+
+exports.isAuth = (req,res,next) => {
+    let user = req.profile && req.auth && req.profile._id == req.auth._id;
+    if(!user){
+        return res.status(400).json({
+            error:'Acceso denegado'
+        })
+    } 
+
+    next()
+}
+
+exports.adminMiddleware = (req,res,next) => {
+    User.findById({_id: req.user._id}).exec((err, user) => {
+        if(err|| !user){
+            return res.status(400).json({
+                error:'Usuario no encontrado'
+            })
+        }
+        if (user.role !== 'admin'){
+            return res.status(400).json({
+                error:'Accesso denegado, Recursos de administrador'
+            })
+        }
+        req.profile = user.
+        next()
+    })
+}
+

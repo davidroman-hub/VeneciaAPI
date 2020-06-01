@@ -23,7 +23,7 @@ mongoose.connect(process.env.DATABASE, {
 
 // import Routes
 const authRoutes = require('./routes/auth') 
-
+const dateRoutes = require('./routes/date')
 
 
 
@@ -39,6 +39,7 @@ if((process.env.NODE_ENV = 'development')){
 
 // middlewares
 app.use('/api', authRoutes);
+app.use('/api', dateRoutes);
 
 // run server
 const port = process.env.PORT || 8000;
