@@ -17,14 +17,14 @@ const dateSchema = new mongoose.Schema({
   name:{
       type: String,
       trim: true,
-      required: true,
+      //required: true,
       max: 32
         //unique: false
        },
     email:{
         type: String,
         trim: true,
-        required: true,
+        //required: true,
         maxLength:32,
        // unique: true,
         lowercase: true
@@ -32,7 +32,7 @@ const dateSchema = new mongoose.Schema({
      phone:{
         type: String,
         trim: true,
-        required: true,
+        //required: true,
         maxLength:32,
        // unique: true,
         lowercase: true
@@ -40,7 +40,7 @@ const dateSchema = new mongoose.Schema({
      number:{
         type: String,
         trim: true,
-        required: true,
+        //required: true,
          // maxLength:32,
        // unique: true,
         lowercase: true
@@ -48,7 +48,7 @@ const dateSchema = new mongoose.Schema({
        booking:{
         type: String,
         trim: true,
-        required: true,
+        //required: true,
         max: 32
           //unique: false
          },
