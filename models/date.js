@@ -1,30 +1,63 @@
 const mongoose = require('mongoose')
+const crypto = require('crypto');
 
-const dateSchema = new mongoose.Schema(
-    {
-        //products: [CartItemSchema], // before was products but in the front end i have this like product
-        number: {},
-        client_email:{},
-        client_address:{},
-        client_address2:{},
-        client_name:{},
-        client_phone:{},
-        client_id:{},
-        details: {},
-        amount: { type: Number },
-        address: String,
-        address2: String,
-        status: {
-          type: String,
-          default: "No procesado",
-          enum: ["No procesado", "Recibido y procesando", "Enviado", "Entregado", "Cancelado"] // enum means string objects
-        },
-        updated: Date,
-         //user: { type: ObjectId, ref: "User" }
-      },
-      { timestamps: true }
+
+const dateSchema = new mongoose.Schema({
+
+
+  username: {
+    type: String,
+    trim: true,
+    required: true,
+    max: 12,
+    unique: true,
+    index: true,
+    lowercase: true
+    } ,
+  name:{
+      type: String,
+      trim: true,
+      required: true,
+      max: 32
+        //unique: false
+       },
+    email:{
+        type: String,
+        trim: true,
+        required: true,
+        maxLength:32,
+       // unique: true,
+        lowercase: true
+       },
+     phone:{
+        type: String,
+        trim: true,
+        required: true,
+        maxLength:32,
+       // unique: true,
+        lowercase: true
+       },
+     number:{
+        type: String,
+        trim: true,
+        required: true,
+         // maxLength:32,
+       // unique: true,
+        lowercase: true
+       },
+       booking:{
+        type: String,
+        trim: true,
+        required: true,
+        max: 32
+          //unique: false
+         },
+
+    },
+    { timestamps: true }
 
 );
+
 
 
 module.exports = mongoose.model("Date", dateSchema);
