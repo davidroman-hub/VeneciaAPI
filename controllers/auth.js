@@ -101,7 +101,7 @@ exports.adminMiddleware = (req,res,next) => {
                 error:'Accesso denegado, Recursos de administrador'
             })
         }
-        req.profile = user.
+        req.profile = user
         next()
     })
 }

@@ -45,6 +45,14 @@ const dateSchema = new mongoose.Schema({
        // unique: true,
         lowercase: true
        },
+       type:{
+        type: String,
+        trim: true,
+        //required: true,
+         // maxLength:32,
+       // unique: true,
+        lowercase: true
+       },
        booking:{
         type: String,
         trim: true,

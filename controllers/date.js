@@ -8,11 +8,29 @@ const shortId = require('shortid')
 
 // create order method
 
+exports.dateById = (req,res,next,id) => {
+    Date.findById(id).exec((err,date)=>{
+        if(err||!date){
+            return res.status(400).json({
+                error:" La cita no existe"
+            })
+        }
+        req.date = date
+        next()
+    })
+}
+
+//// read method of category ////
+exports.read = (req,res) => {
+    return res.json(req.date)
+}
+
+
 
 exports.create = (req,res) => {
-    const { email,name,phone,number,booking } = req.body;
+    const { email,name,phone,number,booking,type } = req.body;
     let username = shortId.generate();
-    let date = new Date({ email,name,phone,number,booking,username});
+    let date = new Date({ email,name,phone,number,booking,type,username});
     date.save((err, data) => {
         if(err){
             return res.status(400).json({
@@ -24,33 +42,31 @@ exports.create = (req,res) => {
 } 
 
 
-// exports.create = (req,res) => {
-//     const date = new Date(req.body)
-//     date.save((err, data) => {
-//         if(err){
-//             return res.status(400).json({
-//                 error: errorHandler(err)
-//             })
-//         }
-//         res.json(data)
-//     })
-// } 
+exports.listDates = (req, res) => {
+    Date.find().exec((err, dates) => {
+            if (err) {
+                return res.status(400).json({
+                    error: errorHandler(error)
+                });
+            }
+            res.json(dates);
+        });
+};
 
-
-// exports.create =(req, res) => {
-//     //console.log('CREATE ORDER: ', req.body);
-//    //req.body.order.user = req.profile;
-//    const date = new Date(req.body.date);
-//    date.save((error, data)=>{
-//        if(error){
-//            return res.status(400).json({ 
-//                error: errorHandler(error)
-//            })
-//        }
-//        res.json(data)
-//    })
-
-// }
+exports.remove = (req, res) => {
+    let date = req.date
+        date.remove((err, deletedProduct)=>{
+            if(err){
+                return res.status(400).json({
+                    error:errorHandler(err)
+                });
+            }
+            res.json({
+            //    deletedProduct,
+             "message":"La cita ha sido eliminada!"
+            })
+        })
+    }    
 
 
 
