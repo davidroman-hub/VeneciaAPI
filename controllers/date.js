@@ -20,10 +20,6 @@ exports.dateById = (req,res,next,id) => {
     })
 }
 
-//// read method of category ////
-exports.read = (req,res) => {
-    return res.json(req.date)
-}
 
 
 
@@ -52,6 +48,14 @@ exports.listDates = (req, res) => {
             res.json(dates);
         });
 };
+
+
+//// read method of category ////
+exports.read = (req,res) => {
+    return res.json(req.date)
+}
+
+
 
 exports.remove = (req, res) => {
     let date = req.date
