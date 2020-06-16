@@ -51,7 +51,7 @@ exports.create = (req,res) => {
                 error: errorHandler(err)
             })
         }
-        console.log('La cita se realiz con exito!', date)
+        console.log('La cita se realizado con exito!', date)
         const emailData = {
             to:process.env.EMAIL_ORDER, //admin
             from :process.env.EMAIL_FROM, //
